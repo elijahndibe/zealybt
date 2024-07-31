@@ -2,6 +2,9 @@ services:
   - type: web
     name: quest-scheduler
     env: node
+    plan: free
     buildCommand: 'yarn install'
     startCommand: 'node app.js'
-    publish: ./
+    envVars:
+      - key: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD
+        value: 'true'
