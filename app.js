@@ -17,7 +17,8 @@ app.use(bodyParser.json());
 async function claimQuest(url) {
     try {
         const browser = await puppeteer.launch({
-            headless: true,
+            headless: false,
+            timeout: 120000, // Increase the timeout to 60 seconds
             args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
         const page = await browser.newPage();
