@@ -4,7 +4,7 @@ const schedule = require('node-schedule');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3030;
 
 // Hard-coded selector
 const BUTTON_SELECTOR = 'button[data-testid="claim-button"]';
@@ -43,7 +43,7 @@ app.post('/schedule', (req, res) => {
     res.json({ message: `Quest claim scheduled at ${time}` });
 });
 
-app.listen(port, '0.0.0.0', () => {
-    console.log(`Server running at http://localhost:${port}`);
+app.listen(port, () => {
+    console.log(`Server running port ${port}`);
 });
 
