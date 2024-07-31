@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quest Scheduler</title>
+</head>
+<body>
+    <h1>Schedule Quest Claim</h1>
+    <form id="quest-form">
+        <label for="quest-url">Quest URL:</label>
+        <input type="url" id="quest-url" name="quest-url" required><br><br>
+        
+        <label for="claim-time">Claim Time (HH:MM):</label>
+        <input type="time" id="claim-time" name="claim-time" required><br><br>
+        
+        <button type="submit">Schedule Claim</button>
+    </form>
+
+    <p id="status"></p>
+
+    <script>
+        document.getElementById('quest-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const url = document.getElementById('quest-url').value;
+            const time = document.getElementById('claim-time').value;
+            
+            fetch('/schedule', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ url, time })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('status').innerText = data.message;
+            })
+            .catch(error => {
+                document.getElementById('status').innerText = 'Error scheduling quest claim.';
+            });
+        });
+    </script>
+</body>
+</html>
